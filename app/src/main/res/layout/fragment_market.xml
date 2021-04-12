@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@drawable/appbackground"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".MarketFragment">
+
+    <ImageView
+        android:id="@+id/market_font"
+        android:layout_width="284dp"
+        android:layout_height="72dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="67dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="60dp"
+        app:srcCompat="@drawable/market" />
+
+    <EditText
+        android:id="@+id/search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="110dp"
+        android:gravity="center"
+        android:hint="@string/search_by_stock_symbol"
+        android:textColor="@color/white"
+        android:textColorHint="#B3B3B3"
+        android:inputType="textPersonName"/>
+
+    <ListView
+        android:id="@+id/mListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/search" />
+
+
+
+
+</RelativeLayout>
