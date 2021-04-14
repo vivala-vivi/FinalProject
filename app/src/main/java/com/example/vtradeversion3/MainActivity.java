@@ -38,9 +38,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-       // BottomNavigationView bottonNav = findViewById(R.id.bottom_nav);
-       // bottonNav.setOnNavigationItemSelectedListener(navListener);
-
         //Attach views
         signup = findViewById(R.id.signup);
         pw = findViewById(R.id.pw);
@@ -68,9 +65,6 @@ public class MainActivity extends AppCompatActivity {
                             mUser = mAuth.getCurrentUser();
                             //error.setText("signInWithEmail:success " +  mUser.getEmail().toString());
 
-                          // setContentView(R.layout.market);
-                           // FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                            //transaction.replace(R.id.fragment_container, new MarketFragment()).commit();
                             startActivity(new Intent(MainActivity.this, MarketActivity.class));
 
                         } else {
