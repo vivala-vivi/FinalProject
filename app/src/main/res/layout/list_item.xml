@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/appbackground"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
@@ -10,14 +11,19 @@
         android:id="@+id/symbolTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"/>
+        android:cacheColorHint="@android:color/transparent"
+        android:textColor="@color/white"
+        android:textSize="16dip"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/longNameTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/symbolTextView"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white"
+        android:textSize="16dip"
+        android:textStyle="bold" />
 
 
 </RelativeLayout>

@@ -28,17 +28,14 @@ import java.util.LinkedList;
 public class MarketFragment extends Fragment {
 
     private Context mContext;
-    private ListView searchListView;
+    private ListView listView;
     private LinkedList<Stock> searchList;
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         return inflater.inflate(R.layout.fragment_market, container, false);
-
     }
 
 
@@ -49,7 +46,7 @@ public class MarketFragment extends Fragment {
 
         searchList = new LinkedList<Stock>();
 
-        searchListView = (ListView) view.findViewById(R.id.mListView);
+        listView = (ListView) view.findViewById(R.id.mListView);
 
         String URL = "https://finnhub.io/api/v1/stock/symbol?exchange=US&token=" + getString(R.string.APIKEY);
         fRequest(URL);
@@ -89,7 +86,7 @@ public class MarketFragment extends Fragment {
 
     private void displaySearchResponse(){
         SearchAdapter mSearchAdapter = new SearchAdapter(mContext, searchList);
-        searchListView.setAdapter((ListAdapter) mSearchAdapter);
+        listView.setAdapter((ListAdapter) mSearchAdapter);
     }
 
 }
