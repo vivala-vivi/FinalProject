@@ -1,6 +1,7 @@
 package com.example.vtradeversion3;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -50,4 +51,7 @@ public class MarketActivity extends AppCompatActivity {
 
 
     }
+
+
+
 }

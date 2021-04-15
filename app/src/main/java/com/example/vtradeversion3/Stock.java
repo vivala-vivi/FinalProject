@@ -4,6 +4,7 @@ public class Stock {
 
     private String symbol;
     private String longName;
+  //  private double c;
 
     public Stock(){}
 
@@ -22,4 +23,12 @@ public class Stock {
     public void setLongName(String longName) {
         this.longName = longName;
     }
+
+  // public double getCurrentPrice(){
+  //      return c;
+   // }
+
+  //  public void setCurrentPrice(double c) {
+   //     this.c = c;
+   //}
 }

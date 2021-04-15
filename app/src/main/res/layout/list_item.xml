@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:cacheColorHint="@android:color/transparent"
         android:textColor="@color/white"
-        android:textSize="16dip"
+        android:textSize="18dip"
         android:textStyle="bold" />
 
     <TextView
@@ -21,9 +21,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/symbolTextView"
-        android:textColor="@color/white"
-        android:textSize="16dip"
-        android:textStyle="bold" />
+        android:textColor="#8E8E8E"
+        android:textSize="14dip"/>
+
+    <!--<TextView
+        android:id="@+id/currentPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/symbolTextView"
+        android:textColor="#8E8E8E"
+        android:textSize="14dip"/> -->
 
 
 </RelativeLayout>

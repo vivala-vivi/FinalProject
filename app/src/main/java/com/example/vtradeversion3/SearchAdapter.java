@@ -44,9 +44,11 @@ public class SearchAdapter extends BaseAdapter {
 
         TextView symbolTextView = (TextView) view.findViewById(R.id.symbolTextView);
         TextView longNameTextView = (TextView) view.findViewById(R.id.longNameTextView);
+      //TextView currentPrice = (TextView) view.findViewById(R.id.currentPrice);
 
         symbolTextView.setText(mList.get(i).getSymbol());
         longNameTextView.setText(mList.get(i).getLongName());
+    // currentPrice.setText((int) mList.get(i).getCurrentPrice());
 
         return view;
     }
