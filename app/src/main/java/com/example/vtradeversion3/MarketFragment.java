@@ -216,15 +216,11 @@ class getJsonAutoComplete {
                         suggest.add(i, Html.fromHtml("<b>" + jsonobject.getString("Symbol") + "</b>") + "\n" + jsonobject.getString("Name") + " (" + jsonobject.getString("Exchange") + ")");
                     }
 
-
                     aAdapter = new ArrayAdapter<String>(mContext.getApplicationContext(), R.layout.autocomplete, suggest);
                     autoComplete.setAdapter(aAdapter);
-
                     aAdapter.notifyDataSetChanged();
 
                     Log.d("Reply", "Getting respone");
-
-
                     Log.d("TAG", "hello");
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -240,7 +236,6 @@ class getJsonAutoComplete {
         );
         queue.add(stringRequest);
     }
-
 
     public void executethis(String newText) {
         String JsonURL = "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=" + newText + "&apikey=L7HBP8DIRO314NAH";
@@ -265,13 +260,11 @@ class getJsonAutoComplete {
                                 suggest.add(i, Html.fromHtml("<b>" + jsonobject.getString("Symbol") + "</b>") + "\n" + jsonobject.getString("Name") + " (" + jsonobject.getString("Exchange") + ")");
                             }
 
-
                             aAdapter = new ArrayAdapter<String>(mContext.getApplicationContext(), R.layout.autocomplete, suggest);
                             autoComplete.setAdapter(aAdapter);
 
                             aAdapter.notifyDataSetChanged();
                             Log.d("Reply", "Getting response");
-
 
                         } catch (JSONException e) {
                             e.printStackTrace();
