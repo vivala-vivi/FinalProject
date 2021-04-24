@@ -63,6 +63,12 @@
         android:onClick="sendMessage"
         android:text="GO"
         android:textColor="@color/purple_500" />
+    <ProgressBar
+        android:id="@+id/progressBar3"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
 
 
 </RelativeLayout>

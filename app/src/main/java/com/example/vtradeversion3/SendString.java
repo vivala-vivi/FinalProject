@@ -3,6 +3,8 @@ package com.example.vtradeversion3;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -50,10 +52,13 @@ public class SendString extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.setOffscreenPageLimit(3);
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(mViewPager);
+        //TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+       // tabLayout.setupWithViewPager(mViewPager);
 
     }
+
+
+
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
@@ -74,7 +79,8 @@ public class SendString extends AppCompatActivity {
                 //        Tab3News tab3 = new Tab3News();
                 //       return tab3;
                 default:
-                    return null;
+                   return null;
+
             }
         }
 

@@ -206,7 +206,7 @@ public class MainActivity extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 // Sign in success, update UI with the signed-in user's information
                                 Toast.makeText(MainActivity.this, "Account created. Now click LOGIN.",
-                                        Toast.LENGTH_SHORT).show();
+                                        Toast.LENGTH_LONG).show();
                                 FirebaseUser user = mAuth.getCurrentUser();
 
                             } else {

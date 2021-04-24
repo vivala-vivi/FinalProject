@@ -49,7 +49,7 @@ import java.util.List;
 public class Tab1Charts extends Fragment implements AdapterView.OnItemSelectedListener {
 
     private RecyclerView tableView;
-   private TableAdapter adapter;
+    private TableAdapter adapter;
     public JSONObject obj;
     public JSONObject metaobj;
     //private ImageButton favorite;
@@ -57,12 +57,12 @@ public class Tab1Charts extends Fragment implements AdapterView.OnItemSelectedLi
     private Context context;
     Spinner spinner;
     ProgressBar progressBar;
-   // boolean isFav;
+    // boolean isFav;
     Button changeButton;
     WebView indicatorView;
     Spinner indicatorSpinner;
-   // ImageButton fbButton;
-   // ShareDialog shareDialog;
+    // ImageButton fbButton;
+    // ShareDialog shareDialog;
     String lastRendered = "";
 
     @Override
@@ -77,50 +77,33 @@ public class Tab1Charts extends Fragment implements AdapterView.OnItemSelectedLi
         tableView = (RecyclerView) layout.findViewById(R.id.pricetable);
         progressBar =  (ProgressBar) layout.findViewById(R.id.progressBar);
         indicatorView =(WebView) layout.findViewById(R.id.indicatorView);
-       indicatorSpinner =(Spinner) layout.findViewById(R.id.spinner);
-      //  fbButton =(ImageButton) layout.findViewById(R.id.fbButton);
+        indicatorSpinner =(Spinner) layout.findViewById(R.id.spinner);
+        //  fbButton =(ImageButton) layout.findViewById(R.id.fbButton);
         context = getActivity();
         changeButton = (Button) layout.findViewById(R.id.indicatorButton);
-       // isFav = ((SendString)context).isFav;
-     //   if(isFav) {
-       //     favorite.setImageResource(R.drawable.filled);
+        // isFav = ((SendString)context).isFav;
+        //   if(isFav) {
+        //     favorite.setImageResource(R.drawable.filled);
         //} else {
-          //  favorite.setImageResource(R.drawable.star);
+        //  favorite.setImageResource(R.drawable.star);
         //}
         final String symPassed = ((SendString)getActivity()).message;
         Log.d("Symbol",symPassed);
-        String JsonURL = "https://demoapplication-env.us-east-2.elasticbeanstalk.com/?symbol="+ symPassed +"&indicator=Price";
+        String JsonURL = "http://demoapplication-env.us-east-2.elasticbeanstalk.com/?symbol="+ symPassed +"&indicator=Price";
         Log.d("Making request again",symPassed);
-        Log.d("pooja","outside");
-       spinner = (Spinner) layout.findViewById(R.id.spinner);
-      ArrayAdapter spinnerAdapter = ArrayAdapter.createFromResource(this.context,R.array.indicators,R.layout.support_simple_spinner_dropdown_item);
+
+        spinner = (Spinner) layout.findViewById(R.id.spinner);
+        ArrayAdapter spinnerAdapter = ArrayAdapter.createFromResource(this.context,R.array.indicators,R.layout.support_simple_spinner_dropdown_item);
         spinner.setAdapter(spinnerAdapter);
         spinner.setOnItemSelectedListener(this);
         if(!(((SendString)getActivity()).isSet)) {
             Log.d("pooja","called");
             ((SendString)getActivity()).isSet = true;
-            RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
 
-            /////////////////////////////////////////////////
-       //     JSONObject object = new JSONObject();
-         //   try {
-         //       //input your API parameters
-         //       object.put("parameter","value");
-         //       object.put("parameter","value");
-         //   } catch (JSONException e) {
-         //       e.printStackTrace();
-         //   }
-            // Enter the correct url for your api service site
-       //     String url = "https://demoapplication-env.us-east-2.elasticbeanstalk.com/?symbol="+ symPassed +"&indicator=Price";
+            RequestQueue queue = Volley.newRequestQueue(getActivity());
 
-          //  JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, JsonURL, object,
-            //        new Response.Listener<JSONObject>() {
-            //////////////////////////////////////////////
-
-            //JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, JsonURL, new Response.Listener<JSONObject>()
-
-            JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET,
-                    JsonURL, null, new Response.Listener<JSONObject>(){
+                JsonObjectRequest stringRequest = new JsonObjectRequest
+                        (Request.Method.GET, JsonURL, null, new Response.Listener<JSONObject>() {
 
                 @Override
                 public void onResponse(JSONObject response) {
@@ -132,7 +115,7 @@ public class Tab1Charts extends Fragment implements AdapterView.OnItemSelectedLi
                         progressBar.setVisibility(View.INVISIBLE);
                         tableView.setHasFixedSize(true);
 
-            //       ((SendString)getActivity()).string;
+                        //       ((SendString)getActivity()).string;
                         tableView.setLayoutManager(new LinearLayoutManager(context));
                         tableView.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL));
                         try {
@@ -152,14 +135,10 @@ public class Tab1Charts extends Fragment implements AdapterView.OnItemSelectedLi
                 }
             }, new Response.ErrorListener() {
 
-
                 @Override
                 public void onErrorResponse(VolleyError error) {
-
                     Toast.makeText(mycontext,"Error while fetching API", Toast.LENGTH_SHORT).show();
                     Log.e("Volley", "Error11" + error.toString());
-
-
                 }
             });
             stringRequest.setRetryPolicy(new DefaultRetryPolicy(
@@ -185,19 +164,19 @@ public class Tab1Charts extends Fragment implements AdapterView.OnItemSelectedLi
             tableView.setAdapter(adapter);
         }
         //sharedPreferences = getActivity().getSharedPreferences(
-       //         "favorite", Context.MODE_PRIVATE);
-       // favorite.setOnClickListener(new View.OnClickListener() {
-         //   @Override
-          //  public void onClick(View v) {
-            //    SharedPreferences.Editor editor = sharedPreferences.edit();
-              //  if(!isFav) {
-               //     editor.putString(symPassed, symPassed);
-                 //   favorite.setImageResource(R.drawable.filled);
-                //} else {
-                  //  editor.remove(symPassed);
-                   // favorite.setImageResource(R.drawable.star);
-                //}
-                //editor.apply();
+        //         "favorite", Context.MODE_PRIVATE);
+        // favorite.setOnClickListener(new View.OnClickListener() {
+        //   @Override
+        //  public void onClick(View v) {
+        //    SharedPreferences.Editor editor = sharedPreferences.edit();
+        //  if(!isFav) {
+        //     editor.putString(symPassed, symPassed);
+        //   favorite.setImageResource(R.drawable.filled);
+        //} else {
+        //  editor.remove(symPassed);
+        // favorite.setImageResource(R.drawable.star);
+        //}
+        //editor.apply();
                 /*Set<String> favoriteList = sharedPreferences.getStringSet("favoriteList", null);
                 if(favoriteList==null) {
                     favoriteList = new LinkedHashSet<String>();
@@ -209,9 +188,9 @@ public class Tab1Charts extends Fragment implements AdapterView.OnItemSelectedLi
                 }
                 editor.putStringSet("favoriteList", favoriteList);
                 editor.commit();*/
-           // }});
+        // }});
 
-       // shareDialog = new ShareDialog(getActivity());
+        // shareDialog = new ShareDialog(getActivity());
 
         return layout;
         //       Intent intent = getIntent(); 

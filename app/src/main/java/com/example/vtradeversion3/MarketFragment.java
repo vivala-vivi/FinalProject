@@ -18,6 +18,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
@@ -48,66 +49,20 @@ public class MarketFragment extends Fragment {
     public AutoCompleteTextView autoComplete;
     public List<String> suggest;
     public ArrayAdapter<String> aAdapter;
+    ProgressBar progressBar;
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
 
             View view = inflater.inflate(R.layout.fragment_market, container, false);
+            progressBar =  (ProgressBar) view.findViewById(R.id.progressBar3);
 
-           autoComplete= (AutoCompleteTextView) view.findViewById(R.id.search);
         //   ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, suggest);
           // autoComplete.setAdapter(adapter);
-
-            autoComplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                public void onItemClick(AdapterView<?> parent, View view, int position, long rowId) {
-                    String selection = (String)parent.getItemAtPosition(position);
-                    selection  = selection.split("\n")[0];
-                    autoComplete.setText(selection);
-                }
-            });
-            autoComplete.addTextChangedListener(new TextWatcher(){
-
-                public void afterTextChanged(Editable editable) {
-                    // TODO Auto-generated method stub
-                }
-
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                    // TODO Auto-generated method stub
-                }
-
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    Log.d("auto","auto complete called");
-                    String newText = s.toString();
-                    new getJsonAutoComplete().executethis(newText);
-                }
-
-            });
-
-
-            Button button = (Button) view.findViewById(R.id.quote);
-            button.setOnClickListener(new View.OnClickListener()
-            {
-                public void onClick(View v)
-                {
-                    String message = autoComplete.getText().toString();
-                    message = message.trim();
-                    if(!message.equals("")) {
-                        Intent intent = new Intent(MarketFragment.this.getActivity(), SendString.class);
-                        intent.putExtra("my_data", message);
-                        // intent.putExtra("favorite", favList.contains(message));
-                        startActivity(intent);
-                    }
-                    else{
-                        Toast.makeText(MarketFragment.this.getActivity(), "Please enter a Stock name or a symbol", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-
             return view;
 
             //return inflater.inflate(R.layout.fragment_market, container, false);
-
         }
 
 
@@ -119,15 +74,35 @@ public class MarketFragment extends Fragment {
             listView = (ListView) view.findViewById(R.id.mListView);
             button= (Button) view.findViewById(R.id.quote);
 
-            String URL = "https://finnhub.io/api/v1/stock/symbol?exchange=US&token=" + getString(R.string.APIKEY);
-            fRequest(URL);
+        Button button = (Button) view.findViewById(R.id.quote);
+        button.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                String message = autoComplete.getText().toString();
+                message = message.trim();
+                if(!message.equals("")) {
+                    Intent intent = new Intent(MarketFragment.this.getActivity(), SendString.class);
+                    intent.putExtra("my_data", message);
+                    // intent.putExtra("favorite", favList.contains(message));
+                    startActivity(intent);
+                }
+                else{
+                    Toast.makeText(MarketFragment.this.getActivity(), "Please enter a Stock name or a symbol", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
+        String URL = "https://finnhub.io/api/v1/stock/symbol?exchange=US&token=" + getString(R.string.APIKEY);
+        fRequest(URL);
 
 
             autoComplete= (AutoCompleteTextView) view.findViewById(R.id.search);
             // aAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, suggest);
              autoComplete.setAdapter(aAdapter);
 
-         autoComplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+              autoComplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
               public void onItemClick(AdapterView<?> parent, View view, int position, long rowId) {
                  String selection = (String)parent.getItemAtPosition(position);
                   selection  = selection.split("\n")[0];
@@ -167,6 +142,7 @@ public class MarketFragment extends Fragment {
     }
 
     private void setStockData(JSONArray response){
+        progressBar.setVisibility(View.INVISIBLE);
         try{
             for(int i = 0; i<10;i++){
                 JSONObject mStockResponse = response.getJSONObject(i);
@@ -204,8 +180,7 @@ public class MarketFragment extends Fragment {
             startActivity(intent);
         }
         else{
-            //Toast.makeText(this, "Please enter a Stock name or a symbol", Toast.LENGTH_SHORT).show();
-
+            Toast.makeText(getContext(), "Enter a Stock name or a symbol", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -224,6 +199,7 @@ class getJsonAutoComplete {
             @Override
             public void onResponse(JSONObject response) {
                 try {
+                    progressBar.setVisibility(View.INVISIBLE);
                     Log.d("auto", response.toString());
                     JSONObject data = response;
                     JSONArray jArray = new JSONArray(data);
@@ -266,6 +242,7 @@ class getJsonAutoComplete {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        progressBar.setVisibility(View.INVISIBLE);
                         try {
                             String data = response;
                             Log.d("auto", "data" + data);
