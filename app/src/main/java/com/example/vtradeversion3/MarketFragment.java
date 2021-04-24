@@ -72,10 +72,8 @@ public class MarketFragment extends Fragment {
                     // TODO Auto-generated method stub
                 }
 
-
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                     // TODO Auto-generated method stub
-
                 }
 
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
