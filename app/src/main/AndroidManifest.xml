@@ -32,11 +32,14 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".SendString" >
+        <activity
+            android:name=".SendString"
+            android:parentActivityName=".MarketActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.DEFAULT" />
             </intent-filter>
         </activity>
+
 
     </application>
 

@@ -24,13 +24,13 @@
         android:textColor="#8E8E8E"
         android:textSize="14dip"/>
 
-    <!--<TextView
+    <TextView
         android:id="@+id/currentPrice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/symbolTextView"
+        android:layout_below="@id/longNameTextView"
         android:textColor="#8E8E8E"
-        android:textSize="14dip"/> -->
+        android:textSize="14dip"/>
 
 
 </RelativeLayout>

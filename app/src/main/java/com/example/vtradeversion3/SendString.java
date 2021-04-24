@@ -2,31 +2,17 @@ package com.example.vtradeversion3;
 
 
 import android.content.Intent;
-
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-
-import android.widget.TextView;
-import androidx.appcompat.widget.Toolbar;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
-
 import com.google.android.material.tabs.TabLayout;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class SendString extends AppCompatActivity {
-
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
@@ -37,7 +23,7 @@ public class SendString extends AppCompatActivity {
     public String message;
     public boolean isSet;
     public List<TableRows> data = new ArrayList<>();
-    public boolean isFav;
+    //public boolean isFav;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,10 +50,8 @@ public class SendString extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.setOffscreenPageLimit(3);
-
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
-
 
     }
 
@@ -91,7 +75,6 @@ public class SendString extends AppCompatActivity {
                 //       return tab3;
                 default:
                     return null;
-
             }
         }
 

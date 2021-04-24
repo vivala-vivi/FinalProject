@@ -9,10 +9,9 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-
 public class MarketActivity extends AppCompatActivity {
 
-    private TextView mTextViewResult;
+   //private TextView mTextViewResult;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

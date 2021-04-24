@@ -49,7 +49,7 @@ import java.util.List;
 public class Tab1Charts extends Fragment implements AdapterView.OnItemSelectedListener {
 
     private RecyclerView tableView;
-    private TableAdapter adapter;
+   private TableAdapter adapter;
     public JSONObject obj;
     public JSONObject metaobj;
     //private ImageButton favorite;
@@ -57,15 +57,13 @@ public class Tab1Charts extends Fragment implements AdapterView.OnItemSelectedLi
     private Context context;
     Spinner spinner;
     ProgressBar progressBar;
-    boolean isFav;
+   // boolean isFav;
     Button changeButton;
     WebView indicatorView;
     Spinner indicatorSpinner;
    // ImageButton fbButton;
    // ShareDialog shareDialog;
     String lastRendered = "";
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -77,13 +75,9 @@ public class Tab1Charts extends Fragment implements AdapterView.OnItemSelectedLi
         final float DEFAULT_BACKOFF_MULT = 1f;
         View layout = inflater.inflate(R.layout.tab1charts, container, false);
         tableView = (RecyclerView) layout.findViewById(R.id.pricetable);
-
-        tableView.setHasFixedSize(true);
-        tableView.setAdapter(adapter);
-       // favorite = (ImageButton) layout.findViewById(R.id.imageButton3);
         progressBar =  (ProgressBar) layout.findViewById(R.id.progressBar);
         indicatorView =(WebView) layout.findViewById(R.id.indicatorView);
-      //  indicatorSpinner =(Spinner) layout.findViewById(R.id.spinner);
+       indicatorSpinner =(Spinner) layout.findViewById(R.id.spinner);
       //  fbButton =(ImageButton) layout.findViewById(R.id.fbButton);
         context = getActivity();
         changeButton = (Button) layout.findViewById(R.id.indicatorButton);
@@ -95,36 +89,38 @@ public class Tab1Charts extends Fragment implements AdapterView.OnItemSelectedLi
         //}
         final String symPassed = ((SendString)getActivity()).message;
         Log.d("Symbol",symPassed);
-     //   String JsonURL = "http://demoapplication-env.us-east-2.elasticbeanstalk.com/?symbol="+symPassed+"&indicator=Price";
+        String JsonURL = "https://demoapplication-env.us-east-2.elasticbeanstalk.com/?symbol="+ symPassed +"&indicator=Price";
         Log.d("Making request again",symPassed);
         Log.d("pooja","outside");
-       // spinner = (Spinner) layout.findViewById(R.id.spinner);
-      //  ArrayAdapter spinnerAdapter = ArrayAdapter.createFromResource(this.context,R.array.indicators,R.layout.support_simple_spinner_dropdown_item);
-        //spinner.setAdapter(spinnerAdapter);
-        //spinner.setOnItemSelectedListener(this);
+       spinner = (Spinner) layout.findViewById(R.id.spinner);
+      ArrayAdapter spinnerAdapter = ArrayAdapter.createFromResource(this.context,R.array.indicators,R.layout.support_simple_spinner_dropdown_item);
+        spinner.setAdapter(spinnerAdapter);
+        spinner.setOnItemSelectedListener(this);
         if(!(((SendString)getActivity()).isSet)) {
             Log.d("pooja","called");
             ((SendString)getActivity()).isSet = true;
             RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
 
             /////////////////////////////////////////////////
-            JSONObject object = new JSONObject();
-            try {
-                //input your API parameters
-                object.put("parameter","value");
-                object.put("parameter","value");
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+       //     JSONObject object = new JSONObject();
+         //   try {
+         //       //input your API parameters
+         //       object.put("parameter","value");
+         //       object.put("parameter","value");
+         //   } catch (JSONException e) {
+         //       e.printStackTrace();
+         //   }
             // Enter the correct url for your api service site
-            String url = "http://demoapplication-env.us-east-2.elasticbeanstalk.com/?symbol="+ symPassed +"&indicator=Price";
+       //     String url = "https://demoapplication-env.us-east-2.elasticbeanstalk.com/?symbol="+ symPassed +"&indicator=Price";
 
-            JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, url, object,
-                    new Response.Listener<JSONObject>() {
+          //  JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, JsonURL, object,
+            //        new Response.Listener<JSONObject>() {
             //////////////////////////////////////////////
 
+            //JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, JsonURL, new Response.Listener<JSONObject>()
 
-            //JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, JsonURL, new Response.Listener<JSONObject>() {
+            JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET,
+                    JsonURL, null, new Response.Listener<JSONObject>(){
 
                 @Override
                 public void onResponse(JSONObject response) {
@@ -136,7 +132,7 @@ public class Tab1Charts extends Fragment implements AdapterView.OnItemSelectedLi
                         progressBar.setVisibility(View.INVISIBLE);
                         tableView.setHasFixedSize(true);
 
-//                    ((SendString)getActivity()).string
+            //       ((SendString)getActivity()).string;
                         tableView.setLayoutManager(new LinearLayoutManager(context));
                         tableView.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL));
                         try {
@@ -144,12 +140,14 @@ public class Tab1Charts extends Fragment implements AdapterView.OnItemSelectedLi
                             adapter = new TableAdapter(context, getData());
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            Log.d("TAG", "hmmmmmm");
                         }
                         tableView.setAdapter(adapter);
 
                         Log.d("TAG", "hello");
                         //e.printStackTrace();
                     } catch (JSONException e) {
+                        Log.d("Reply","NO response");
                     }
                 }
             }, new Response.ErrorListener() {
@@ -186,8 +184,8 @@ public class Tab1Charts extends Fragment implements AdapterView.OnItemSelectedLi
             }
             tableView.setAdapter(adapter);
         }
-        sharedPreferences = getActivity().getSharedPreferences(
-                "favorite", Context.MODE_PRIVATE);
+        //sharedPreferences = getActivity().getSharedPreferences(
+       //         "favorite", Context.MODE_PRIVATE);
        // favorite.setOnClickListener(new View.OnClickListener() {
          //   @Override
           //  public void onClick(View v) {
@@ -219,10 +217,7 @@ public class Tab1Charts extends Fragment implements AdapterView.OnItemSelectedLi
         //       Intent intent = getIntent(); 
 //        String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE); 
 //        Log.d("pooja",message); 
-
     }
-
-
 
 
     public List<TableRows> getData() throws JSONException {
@@ -330,7 +325,7 @@ public class Tab1Charts extends Fragment implements AdapterView.OnItemSelectedLi
                         indicatorView.getSettings().setJavaScriptEnabled(true);
                         indicatorView.setWebChromeClient(new WebChromeClient());
                         indicatorView.setWebViewClient(new WebViewClient());
-                        indicatorView.loadUrl("http://www-scf.usc.edu/~deole/highsma.php/?sym="+symPassed);
+                        indicatorView.loadUrl("https://www-scf.usc.edu/~deole/highsma.php/?sym="+symPassed);
                         indicatorView.setVisibility(View.VISIBLE);
                         changeButton.setTextColor(Color.parseColor("#808080"));
                         changeButton.setEnabled(false);
@@ -343,7 +338,7 @@ public class Tab1Charts extends Fragment implements AdapterView.OnItemSelectedLi
                         indicatorView.getSettings().setJavaScriptEnabled(true);
                         indicatorView.setWebChromeClient(new WebChromeClient());
                         indicatorView.setWebViewClient(new WebViewClient());
-                        indicatorView.loadUrl("http://www-scf.usc.edu/~deole/highema.php/?sym="+symPassed);
+                        indicatorView.loadUrl("https://www-scf.usc.edu/~deole/highema.php/?sym="+symPassed);
                         indicatorView.setVisibility(View.VISIBLE);
                         changeButton.setTextColor(Color.parseColor("#808080"));
                         changeButton.setEnabled(false);
@@ -354,7 +349,7 @@ public class Tab1Charts extends Fragment implements AdapterView.OnItemSelectedLi
                         indicatorView.getSettings().setJavaScriptEnabled(true);
                         indicatorView.setWebChromeClient(new WebChromeClient());
                         indicatorView.setWebViewClient(new WebViewClient());
-                        indicatorView.loadUrl("http://www-scf.usc.edu/~deole/highstoch.php/?sym="+symPassed);
+                        indicatorView.loadUrl("https://www-scf.usc.edu/~deole/highstoch.php/?sym="+symPassed);
                         indicatorView.setVisibility(View.VISIBLE);
                         changeButton.setTextColor(Color.parseColor("#808080"));
                         changeButton.setEnabled(false);
@@ -366,7 +361,7 @@ public class Tab1Charts extends Fragment implements AdapterView.OnItemSelectedLi
                         indicatorView.getSettings().setJavaScriptEnabled(true);
                         indicatorView.setWebChromeClient(new WebChromeClient());
                         indicatorView.setWebViewClient(new WebViewClient());
-                        indicatorView.loadUrl("http://www-scf.usc.edu/~deole/highbbands.php/?sym="+symPassed);
+                        indicatorView.loadUrl("https://www-scf.usc.edu/~deole/highbbands.php/?sym="+symPassed);
                         indicatorView.setVisibility(View.VISIBLE);
                         changeButton.setTextColor(Color.parseColor("#808080"));
                         changeButton.setEnabled(false);
@@ -377,7 +372,7 @@ public class Tab1Charts extends Fragment implements AdapterView.OnItemSelectedLi
                         indicatorView.getSettings().setJavaScriptEnabled(true);
                         indicatorView.setWebChromeClient(new WebChromeClient());
                         indicatorView.setWebViewClient(new WebViewClient());
-                        indicatorView.loadUrl("http://www-scf.usc.edu/~deole/highadx.php/?sym="+symPassed);
+                        indicatorView.loadUrl("https://www-scf.usc.edu/~deole/highadx.php/?sym="+symPassed);
                         indicatorView.setVisibility(View.VISIBLE);
                         changeButton.setTextColor(Color.parseColor("#808080"));
                         changeButton.setEnabled(false);
@@ -388,7 +383,7 @@ public class Tab1Charts extends Fragment implements AdapterView.OnItemSelectedLi
                         indicatorView.getSettings().setJavaScriptEnabled(true);
                         indicatorView.setWebChromeClient(new WebChromeClient());
                         indicatorView.setWebViewClient(new WebViewClient());
-                        indicatorView.loadUrl("http://www-scf.usc.edu/~deole/highprice.php/?sym="+symPassed);
+                        indicatorView.loadUrl("https://www-scf.usc.edu/~deole/highprice.php/?sym="+symPassed);
                         indicatorView.setVisibility(View.VISIBLE);
                         changeButton.setTextColor(Color.parseColor("#808080"));
                         changeButton.setEnabled(false);
@@ -433,7 +428,7 @@ public class Tab1Charts extends Fragment implements AdapterView.OnItemSelectedLi
                             }
                         });
 
-                        indicatorView.loadUrl("http://www-scf.usc.edu/~deole/highrsi.php/?sym="+symPassed);
+                        indicatorView.loadUrl("https://www-scf.usc.edu/~deole/highrsi.php/?sym="+symPassed);
                         indicatorView.setVisibility(View.VISIBLE);
                         changeButton.setTextColor(Color.parseColor("#808080"));
                         changeButton.setEnabled(false);
@@ -444,7 +439,7 @@ public class Tab1Charts extends Fragment implements AdapterView.OnItemSelectedLi
                         indicatorView.getSettings().setJavaScriptEnabled(true);
                         indicatorView.setWebChromeClient(new WebChromeClient());
                         indicatorView.setWebViewClient(new WebViewClient());
-                        indicatorView.loadUrl("http://www-scf.usc.edu/~deole/highcci.php/?sym="+symPassed);
+                        indicatorView.loadUrl("https://www-scf.usc.edu/~deole/highcci.php/?sym="+symPassed);
                         indicatorView.setVisibility(View.VISIBLE);
                         changeButton.setTextColor(Color.parseColor("#808080"));
                         changeButton.setEnabled(false);
@@ -455,13 +450,11 @@ public class Tab1Charts extends Fragment implements AdapterView.OnItemSelectedLi
                         indicatorView.getSettings().setJavaScriptEnabled(true);
                         indicatorView.setWebChromeClient(new WebChromeClient());
                         indicatorView.setWebViewClient(new WebViewClient());
-                        indicatorView.loadUrl("http://www-scf.usc.edu/~deole/highmacd.php/?sym="+symPassed);
+                        indicatorView.loadUrl("https://www-scf.usc.edu/~deole/highmacd.php/?sym="+symPassed);
                         indicatorView.setVisibility(View.VISIBLE);
                         changeButton.setTextColor(Color.parseColor("#808080"));
                         changeButton.setEnabled(false);
                     }
-
-
 
                 }
             });

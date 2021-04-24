@@ -30,11 +30,14 @@
         android:layout_marginStart="19dp"
         android:layout_marginTop="110dp"
         android:gravity="center"
+        android:text=""
         android:hint="@string/search_by_stock_symbol"
-        android:inputType="textPersonName"
+        android:inputType="text"
         android:textColor="@color/white"
-        android:textColorHint="#B3B3B3" />
-
+        android:textColorHint="#B3B3B3"
+        android:completionThreshold="1">
+        <requestFocus />
+    </AutoCompleteTextView>
 
     <ListView
         android:id="@+id/mListView"

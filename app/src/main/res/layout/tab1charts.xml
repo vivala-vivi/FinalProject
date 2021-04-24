@@ -62,14 +62,14 @@
             android:layout_alignBottom="@+id/textView"
             android:layout_alignTop="@+id/textView" />-->
 
-      <!--  <Spinner
+       <Spinner
             android:id="@+id/spinner"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/textView2"
             android:layout_marginStart="10dp"
             android:layout_alignBottom="@id/textView2"
-            android:layout_alignTop="@id/textView2"/> -->
+            android:layout_alignTop="@id/textView2"/>
 
       <!--  <ImageButton
             android:id="@+id/fbButton"
@@ -100,9 +100,10 @@
             style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="27dp"
             android:layout_below="@+id/textView"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="27dp"
+            tools:visibility="visible" />
 
         <WebView
             android:id="@+id/indicatorView"

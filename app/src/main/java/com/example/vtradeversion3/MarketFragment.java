@@ -49,12 +49,44 @@ public class MarketFragment extends Fragment {
     public List<String> suggest;
     public ArrayAdapter<String> aAdapter;
 
-
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
 
             View view = inflater.inflate(R.layout.fragment_market, container, false);
+
+
+           autoComplete= (AutoCompleteTextView) view.findViewById(R.id.search);
+        //   ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, suggest);
+          // autoComplete.setAdapter(adapter);
+
+            autoComplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                public void onItemClick(AdapterView<?> parent, View view, int position, long rowId) {
+                    String selection = (String)parent.getItemAtPosition(position);
+                    selection  = selection.split("\n")[0];
+                    autoComplete.setText(selection);
+                }
+            });
+            autoComplete.addTextChangedListener(new TextWatcher(){
+
+                public void afterTextChanged(Editable editable) {
+                    // TODO Auto-generated method stub
+                }
+
+
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                    // TODO Auto-generated method stub
+
+                }
+
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    Log.d("auto","auto complete called");
+                    String newText = s.toString();
+                    new getJsonAutoComplete().executethis(newText);
+                }
+
+            });
+
 
             Button button = (Button) view.findViewById(R.id.quote);
             button.setOnClickListener(new View.OnClickListener()
@@ -74,6 +106,7 @@ public class MarketFragment extends Fragment {
                     }
                 }
             });
+
             return view;
 
             //return inflater.inflate(R.layout.fragment_market, container, false);
@@ -91,17 +124,19 @@ public class MarketFragment extends Fragment {
 
             String URL = "https://finnhub.io/api/v1/stock/symbol?exchange=US&token=" + getString(R.string.APIKEY);
             fRequest(URL);
-          //  String URL_ = "https://finnhub.io/api/v1/quote?symbol=AAPL&token=c1ot3l2ad3ic1jomvgi0";
-          //  fRequest(URL_);
 
-            autoComplete= view.findViewById(R.id.search);
-            autoComplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                public void onItemClick(AdapterView<?> parent, View view, int position, long rowId) {
-                    String selection = (String)parent.getItemAtPosition(position);
-                    selection  = selection.split("\n")[0];
-                    autoComplete.setText(selection);
-                }
-            });
+
+            autoComplete= (AutoCompleteTextView) view.findViewById(R.id.search);
+            // aAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, suggest);
+             autoComplete.setAdapter(aAdapter);
+
+         autoComplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+              public void onItemClick(AdapterView<?> parent, View view, int position, long rowId) {
+                 String selection = (String)parent.getItemAtPosition(position);
+                  selection  = selection.split("\n")[0];
+                 autoComplete.setText(selection);
+              }
+          });
 
             autoComplete.addTextChangedListener(new TextWatcher(){
 
@@ -117,7 +152,6 @@ public class MarketFragment extends Fragment {
                     String newText = s.toString();
                     new getJsonAutoComplete().executethis(newText);
                 }
-
             });
     }
 
@@ -133,10 +167,7 @@ public class MarketFragment extends Fragment {
                 }, (error) -> {
          });
         mQueue.add(jsonObjectRequest);
-
     }
-
-
 
     private void setStockData(JSONArray response){
         try{
@@ -164,8 +195,6 @@ public class MarketFragment extends Fragment {
 
 
 
-
-
 /////////////////////////////////////////////////////////////////////////////////////
 
     public void sendMessage(View view){
@@ -187,21 +216,15 @@ public class MarketFragment extends Fragment {
 class getJsonAutoComplete {
 
     public void execute(String newText) {
-//////////////////////////////////
-        RequestQueue queue = Volley.newRequestQueue(mContext.getApplicationContext());
-        JSONObject object = new JSONObject();
-        try {
-            //input your API parameters
-            object.put("parameter","value");
-            object.put("parameter","value");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        // Enter the correct url for your api service site
-        String url = "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=" + newText + "&apikey=L7HBP8DIRO314NAH";
 
-        JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, url, object,
-                new Response.Listener<JSONObject>() {
+        String JsonURL = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&keywords=" + newText + "&apikey=L7HBP8DIRO314NAH";
+        Log.d("auto", "input " + JsonURL);
+        RequestQueue queue = Volley.newRequestQueue(mContext.getApplicationContext());
+
+
+                    JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, JsonURL, null, new Response.Listener<JSONObject>() {
+
+
             @Override
             public void onResponse(JSONObject response) {
                 try {
@@ -213,10 +236,10 @@ class getJsonAutoComplete {
                     for (int i = 0; i < jArray.length(); i++) {
                         JSONObject jsonobject = jArray.getJSONObject(i);
 
-                        suggest.add(i, Html.fromHtml("<b>" + jsonobject.getString("Symbol") + "</b>") + "\n" + jsonobject.getString("Name") + " (" + jsonobject.getString("Exchange") + ")");
+                        suggest.add(i, Html.fromHtml("<b>" + jsonobject.getString("symbol") + "</b>") + "\n" + jsonobject.getString("price"));  // + " (" + jsonobject.getString("Exchange") + ")");
                     }
 
-                    aAdapter = new ArrayAdapter<String>(mContext.getApplicationContext(), R.layout.autocomplete, suggest);
+                    aAdapter = new ArrayAdapter<String>(mContext.getApplicationContext(), android.R.layout.simple_list_item_1, suggest);
                     autoComplete.setAdapter(aAdapter);
                     aAdapter.notifyDataSetChanged();
 
@@ -238,7 +261,7 @@ class getJsonAutoComplete {
     }
 
     public void executethis(String newText) {
-        String JsonURL = "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=" + newText + "&apikey=L7HBP8DIRO314NAH";
+        String JsonURL = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&keywords=" + newText + "&apikey=L7HBP8DIRO314NAH";
         Log.d("auto", "input " + JsonURL);
         RequestQueue queue = Volley.newRequestQueue(mContext.getApplicationContext());
 
@@ -257,7 +280,7 @@ class getJsonAutoComplete {
                             for (int i = 0; i < jArray.length(); i++) {
                                 JSONObject jsonobject = jArray.getJSONObject(i);
 
-                                suggest.add(i, Html.fromHtml("<b>" + jsonobject.getString("Symbol") + "</b>") + "\n" + jsonobject.getString("Name") + " (" + jsonobject.getString("Exchange") + ")");
+                                suggest.add(i, Html.fromHtml("<b>" + jsonobject.getString("symbol") + "</b>") + "\n" + jsonobject.getString("price"));// + " (" + jsonobject.getString("Exchange") + ")");
                             }
 
                             aAdapter = new ArrayAdapter<String>(mContext.getApplicationContext(), R.layout.autocomplete, suggest);
