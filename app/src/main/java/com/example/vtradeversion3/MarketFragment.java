@@ -55,7 +55,6 @@ public class MarketFragment extends Fragment {
 
             View view = inflater.inflate(R.layout.fragment_market, container, false);
 
-
            autoComplete= (AutoCompleteTextView) view.findViewById(R.id.search);
         //   ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, suggest);
           // autoComplete.setAdapter(adapter);
@@ -211,7 +210,6 @@ public class MarketFragment extends Fragment {
 
         }
     }
-
 
 class getJsonAutoComplete {
 
