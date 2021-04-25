@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/appbackground"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <RelativeLayout
@@ -22,7 +23,7 @@
             android:layout_marginTop="5dp"
             android:text="Stock Details"
             android:textSize="30sp"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/white"
             android:textStyle="bold"
             android:layout_alignParentStart="true" />
 
@@ -33,7 +34,9 @@
             android:layout_height="350dp"
             android:layout_alignParentStart="true"
             android:layout_below="@id/textView"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="20dp"
+            android:textColor="@android:color/white"
+            android:divider="#9300EE">
 
         </androidx.recyclerview.widget.RecyclerView>
 
@@ -43,10 +46,10 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="3dp"
             android:textSize="20sp"
-            android:textColor="@android:color/black"
             android:text="Indicators"
             android:layout_below="@id/pricetable"
-            android:layout_alignStart="@id/textView" />
+            android:layout_alignStart="@id/textView"
+            android:textColor="@android:color/white"/>
 
 
       <!--  <ImageButton
@@ -62,14 +65,22 @@
             android:layout_alignBottom="@+id/textView"
             android:layout_alignTop="@+id/textView" />-->
 
-       <Spinner
+        <Spinner
             android:id="@+id/spinner"
+            style="@style/Widget.AppCompat.Spinner.Underlined"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/textView2"
-            android:layout_marginStart="10dp"
+            android:layout_alignTop="@id/textView2"
             android:layout_alignBottom="@id/textView2"
-            android:layout_alignTop="@id/textView2"/>
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@id/textView2"
+            android:background="#9F00BA"
+            android:dropDownSelector="@android:drawable/arrow_up_float"
+            android:popupBackground="#9F00BA"
+            android:scrollIndicators="right"
+            android:textColor="@android:color/white"
+            android:visibility="visible"
+            tools:visibility="visible" />
 
       <!--  <ImageButton
             android:id="@+id/fbButton"
@@ -111,17 +122,20 @@
             android:layout_height="300dp"
             android:layout_below="@+id/textView2"
             android:layout_marginTop="53dp"
-            android:visibility="gone"/>
+            android:visibility="visible" />
 
         <Button
             android:id="@+id/indicatorButton"
+            style="@style/Widget.AppCompat.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
             android:layout_below="@+id/progressBar"
+            android:layout_alignParentEnd="true"
             android:layout_marginTop="280dp"
-            style="?android:attr/borderlessButtonStyle"
-            android:text="Change" />
+            android:text="Change"
+            android:textColor="#FFFFFF"
+            app:rippleColor="#FFFFFF"
+            tools:text="Change" />
 
 
     </RelativeLayout>

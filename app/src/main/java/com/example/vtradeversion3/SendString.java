@@ -33,7 +33,7 @@ public class SendString extends AppCompatActivity {
         setContentView(R.layout.activity_send_strings);
 
         Intent intent = getIntent();
-        message = intent.getStringExtra("my_data");
+        message = intent.getStringExtra("data");
         //  isFav = intent.getBooleanExtra("favorite", false);
         //       Intent intent = getIntent(); 
 //        String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE); 

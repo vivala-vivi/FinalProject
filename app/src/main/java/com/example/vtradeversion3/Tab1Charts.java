@@ -89,7 +89,7 @@ public class Tab1Charts extends Fragment implements AdapterView.OnItemSelectedLi
         //}
         final String symPassed = ((SendString)getActivity()).message;
         Log.d("Symbol",symPassed);
-        String JsonURL = "http://demoapplication-env.us-east-2.elasticbeanstalk.com/?symbol="+ symPassed +"&indicator=Price";
+        String JsonURL = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol="+ symPassed +"&apikey=U5PL1CLGG9GCGR4W";
         Log.d("Making request again",symPassed);
 
         spinner = (Spinner) layout.findViewById(R.id.spinner);
@@ -97,7 +97,7 @@ public class Tab1Charts extends Fragment implements AdapterView.OnItemSelectedLi
         spinner.setAdapter(spinnerAdapter);
         spinner.setOnItemSelectedListener(this);
         if(!(((SendString)getActivity()).isSet)) {
-            Log.d("pooja","called");
+            Log.d("","called");
             ((SendString)getActivity()).isSet = true;
 
             RequestQueue queue = Volley.newRequestQueue(getActivity());
@@ -111,7 +111,7 @@ public class Tab1Charts extends Fragment implements AdapterView.OnItemSelectedLi
                         // Display the first 500 characters of the response string.
                         obj = response.getJSONObject("Time Series (Daily)");
                         metaobj = response.getJSONObject("Meta Data");
-                        Log.d("Reply","Getting response");
+                        Log.d("Reply","...Getting response");
                         progressBar.setVisibility(View.INVISIBLE);
                         tableView.setHasFixedSize(true);
 
@@ -203,7 +203,7 @@ public class Tab1Charts extends Fragment implements AdapterView.OnItemSelectedLi
         int i;
         List<TableRows> data = new ArrayList<>();
         List<String> values = new ArrayList<String>();
-        String[] heading={"Stock Symbol","Last Price","Change","Timestamp","Open","Close","Day's Range","Volume"};
+        String[] heading={"Stock Symbol ","Last Price ","Change ","Timestamp ","Open ","Close ","Day's Range ","Volume "};
 
         try {
             int count = 0;
@@ -273,8 +273,8 @@ public class Tab1Charts extends Fragment implements AdapterView.OnItemSelectedLi
         final TextView mytext = (TextView) view;
 
         if(mytext!=null) {
-            // Toast.makeText(this.context, "Your selection " + mytext.getText(), Toast.LENGTH_SHORT).show();
-            //     Log.d("indicator", "my indicator is selected");
+             Toast.makeText(this.context, "Your selection " + mytext.getText(), Toast.LENGTH_SHORT).show();
+                 Log.d("indicator", "my indicator is selected");
 
 
             if(lastRendered.equals(mytext.getText())){

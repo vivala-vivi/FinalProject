@@ -83,7 +83,7 @@ public class MarketFragment extends Fragment {
                 message = message.trim();
                 if(!message.equals("")) {
                     Intent intent = new Intent(MarketFragment.this.getActivity(), SendString.class);
-                    intent.putExtra("my_data", message);
+                    intent.putExtra("data", message);
                     // intent.putExtra("favorite", favList.contains(message));
                     startActivity(intent);
                 }
@@ -152,6 +152,7 @@ public class MarketFragment extends Fragment {
                     mStock.setSymbol(mStockResponse.getString("symbol"));
                     mStock.setLongName(mStockResponse.getString("description"));
 
+
                // mStock.setCurrentPrice(mStockResponse.getDouble("c"));
 
                 searchList.add(mStock);
@@ -175,7 +176,7 @@ public class MarketFragment extends Fragment {
         message = message.trim();
         if(!message.equals("")) {
             Intent intent = new Intent(MarketFragment.this.getActivity(), SendString.class);
-            intent.putExtra("my_data", message);
+            intent.putExtra("data", message);
            // intent.putExtra("favorite", favList.contains(message));
             startActivity(intent);
         }
@@ -188,7 +189,7 @@ class getJsonAutoComplete {
 
     public void execute(String newText) {
 
-        String JsonURL = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&keywords=" + newText + "&apikey=L7HBP8DIRO314NAH";
+        String JsonURL = "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=" + newText + "&apikey=8NEHIYGHRJY1RB3J";
         Log.d("auto", "input " + JsonURL);
         RequestQueue queue = Volley.newRequestQueue(mContext.getApplicationContext());
 
@@ -203,12 +204,13 @@ class getJsonAutoComplete {
                     Log.d("auto", response.toString());
                     JSONObject data = response;
                     JSONArray jArray = new JSONArray(data);
+
                     // Display the first 500 characters of the response string.
                     suggest = new ArrayList<String>();
                     for (int i = 0; i < jArray.length(); i++) {
                         JSONObject jsonobject = jArray.getJSONObject(i);
 
-                        suggest.add(i, Html.fromHtml("<b>" + jsonobject.getString("symbol") + "</b>") + "\n" + jsonobject.getString("price"));  // + " (" + jsonobject.getString("Exchange") + ")");
+                        suggest.add(i, Html.fromHtml("<b>" + jsonobject.getString("1. symbol") + "</b>") + "\n" + jsonobject.getString("2. name"));  // + " (" + jsonobject.getString("Exchange") + ")");
                     }
 
                     aAdapter = new ArrayAdapter<String>(mContext.getApplicationContext(), android.R.layout.simple_list_item_1, suggest);
@@ -218,6 +220,7 @@ class getJsonAutoComplete {
                     Log.d("Reply", "Getting respone");
                     Log.d("TAG", "hello");
                 } catch (JSONException e) {
+                    Log.d("auto", "NOT GETTING RESPONSE!! hmmm");
                     e.printStackTrace();
                 }
             }
@@ -233,7 +236,7 @@ class getJsonAutoComplete {
     }
 
     public void executethis(String newText) {
-        String JsonURL = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&keywords=" + newText + "&apikey=L7HBP8DIRO314NAH";
+        String JsonURL = "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=" + newText + "&apikey=8NEHIYGHRJY1RB3J";
         Log.d("auto", "input " + JsonURL);
         RequestQueue queue = Volley.newRequestQueue(mContext.getApplicationContext());
 
@@ -247,13 +250,16 @@ class getJsonAutoComplete {
                             String data = response;
                             Log.d("auto", "data" + data);
                             //processData(response);
-                            JSONArray jArray = new JSONArray(data);
-                            // Display the first 500 characters of the response string.
+                          //  JSONArray jArray = new JSONArray(data);
+
+                            JSONObject jsonObject = new JSONObject(data);
+                            JSONArray jArray = jsonObject.getJSONArray("bestMatches");
+                            // Display tthe first 500 characters of the response string.
                             suggest = new ArrayList<String>();
                             for (int i = 0; i < jArray.length(); i++) {
                                 JSONObject jsonobject = jArray.getJSONObject(i);
 
-                                suggest.add(i, Html.fromHtml("<b>" + jsonobject.getString("symbol") + "</b>") + "\n" + jsonobject.getString("price"));// + " (" + jsonobject.getString("Exchange") + ")");
+                                suggest.add(i, Html.fromHtml("<b>" + jsonobject.getString("1. symbol") + "</b>") + "\n" + jsonobject.getString("2. name"));// + " (" + jsonobject.getString("Exchange") + ")");
                             }
 
                             aAdapter = new ArrayAdapter<String>(mContext.getApplicationContext(), R.layout.autocomplete, suggest);
@@ -263,6 +269,7 @@ class getJsonAutoComplete {
                             Log.d("Reply", "Getting response");
 
                         } catch (JSONException e) {
+                            Log.d("Reply", "Mmmm no response");
                             e.printStackTrace();
                         }
                     }
