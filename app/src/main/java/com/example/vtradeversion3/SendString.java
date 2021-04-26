@@ -34,26 +34,16 @@ public class SendString extends AppCompatActivity {
 
         Intent intent = getIntent();
         message = intent.getStringExtra("data");
-        //  isFav = intent.getBooleanExtra("favorite", false);
-        //       Intent intent = getIntent(); 
-//        String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE); 
-//        Log.d("pooja",message); 
 
-
-        //   Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        // setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(message);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
+
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.setOffscreenPageLimit(3);
-        //TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        // tabLayout.setupWithViewPager(mViewPager);
 
     }
 
@@ -72,21 +62,13 @@ public class SendString extends AppCompatActivity {
                 case 0:
                     Tab1Charts tab1 = new Tab1Charts();
                     return tab1;
-                //    case 1:
-                //       Tab2History tab2 = new Tab2History();
-                //       return tab2;
-                //    case 2:
-                //        Tab3News tab3 = new Tab3News();
-                //       return tab3;
                 default:
                     return null;
-
             }
         }
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
             return 1;
         }
 

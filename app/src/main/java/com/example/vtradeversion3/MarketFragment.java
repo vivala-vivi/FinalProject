@@ -58,11 +58,7 @@ public class MarketFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_market, container, false);
         progressBar =  (ProgressBar) view.findViewById(R.id.progressBar3);
 
-        //   ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, suggest);
-        // autoComplete.setAdapter(adapter);
         return view;
-
-        //return inflater.inflate(R.layout.fragment_market, container, false);
     }
 
 
@@ -166,8 +162,6 @@ public class MarketFragment extends Fragment {
         SearchAdapter mSearchAdapter = new SearchAdapter(mContext, searchList);
         listView.setAdapter((ListAdapter) mSearchAdapter);
     }
-
-
 
 /////////////////////////////////////////////////////////////////////////////////////
 
@@ -282,11 +276,7 @@ public class MarketFragment extends Fragment {
                     }
             );
             queue.add(req);
-
         }
-
     }
-
-
 
 }

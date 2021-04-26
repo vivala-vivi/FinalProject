@@ -24,11 +24,4 @@ public class Stock {
         this.longName = longName;
     }
 
-  // public double getCurrentPrice(){
-  //      return c;
-   // }
-
-  //  public void setCurrentPrice(double c) {
-   //     this.c = c;
-   //}
 }

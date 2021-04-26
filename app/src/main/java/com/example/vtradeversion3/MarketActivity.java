@@ -46,9 +46,6 @@ public class MarketActivity extends AppCompatActivity {
                             return true;
                     });
 
-
-
-
     }
 
 

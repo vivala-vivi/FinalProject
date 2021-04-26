@@ -55,8 +55,6 @@ public class TableAdapter extends RecyclerView.Adapter<TableAdapter.TableViewHol
             holder.header.setText(current.header);
         }
         Log.d("mytable",current.title);
-
-
     }
 
     @Override

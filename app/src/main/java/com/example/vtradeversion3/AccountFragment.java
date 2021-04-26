@@ -47,11 +47,4 @@ public class AccountFragment extends Fragment {
      //   finish();
     }
 
-
-    //btnSignOut.setOnClickListener(new View.OnClickListener() {
-    //    @Override
-    //    public void onClick(View v) {
-   //         mAuth.signOut();
-     //       btnSignOut.setVisibility(View.INVISIBLE);
-     //   }
 }

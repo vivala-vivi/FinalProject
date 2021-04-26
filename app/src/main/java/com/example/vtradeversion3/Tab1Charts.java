@@ -273,9 +273,6 @@ public class Tab1Charts extends Fragment implements AdapterView.OnItemSelectedLi
         final TextView mytext = (TextView) view;
 
         if(mytext!=null) {
-       //     Toast.makeText(this.context, "Your selection " + mytext.getText(), Toast.LENGTH_SHORT).show();
-        //    Log.d("indicator", "my indicator is selected");
-
 
             if(lastRendered.equals(mytext.getText())){
                 changeButton.setEnabled(false);
@@ -402,7 +399,6 @@ public class Tab1Charts extends Fragment implements AdapterView.OnItemSelectedLi
                                 catch (Exception e){
                                     e.printStackTrace();
                                 }
-
 
                             }
                         });
