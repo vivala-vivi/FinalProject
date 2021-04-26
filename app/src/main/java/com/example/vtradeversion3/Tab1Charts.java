@@ -52,17 +52,13 @@ public class Tab1Charts extends Fragment implements AdapterView.OnItemSelectedLi
     private TableAdapter adapter;
     public JSONObject obj;
     public JSONObject metaobj;
-    //private ImageButton favorite;
     private SharedPreferences sharedPreferences;
     private Context context;
     Spinner spinner;
     ProgressBar progressBar;
-    // boolean isFav;
     Button changeButton;
     WebView indicatorView;
     Spinner indicatorSpinner;
-    // ImageButton fbButton;
-    // ShareDialog shareDialog;
     String lastRendered = "";
 
     @Override
@@ -78,15 +74,8 @@ public class Tab1Charts extends Fragment implements AdapterView.OnItemSelectedLi
         progressBar =  (ProgressBar) layout.findViewById(R.id.progressBar);
         indicatorView =(WebView) layout.findViewById(R.id.indicatorView);
         indicatorSpinner =(Spinner) layout.findViewById(R.id.spinner);
-        //  fbButton =(ImageButton) layout.findViewById(R.id.fbButton);
         context = getActivity();
         changeButton = (Button) layout.findViewById(R.id.indicatorButton);
-        // isFav = ((SendString)context).isFav;
-        //   if(isFav) {
-        //     favorite.setImageResource(R.drawable.filled);
-        //} else {
-        //  favorite.setImageResource(R.drawable.star);
-        //}
         final String symPassed = ((SendString)getActivity()).message;
         Log.d("Symbol",symPassed);
         String JsonURL = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol="+ symPassed +"&apikey=U5PL1CLGG9GCGR4W";
@@ -101,7 +90,6 @@ public class Tab1Charts extends Fragment implements AdapterView.OnItemSelectedLi
             ((SendString)getActivity()).isSet = true;
 
             RequestQueue queue = Volley.newRequestQueue(getActivity());
-
             JsonObjectRequest stringRequest = new JsonObjectRequest
                     (Request.Method.GET, JsonURL, null, new Response.Listener<JSONObject>() {
 
@@ -163,39 +151,9 @@ public class Tab1Charts extends Fragment implements AdapterView.OnItemSelectedLi
             }
             tableView.setAdapter(adapter);
         }
-        //sharedPreferences = getActivity().getSharedPreferences(
-        //         "favorite", Context.MODE_PRIVATE);
-        // favorite.setOnClickListener(new View.OnClickListener() {
-        //   @Override
-        //  public void onClick(View v) {
-        //    SharedPreferences.Editor editor = sharedPreferences.edit();
-        //  if(!isFav) {
-        //     editor.putString(symPassed, symPassed);
-        //   favorite.setImageResource(R.drawable.filled);
-        //} else {
-        //  editor.remove(symPassed);
-        // favorite.setImageResource(R.drawable.star);
-        //}
-        //editor.apply();
-                /*Set<String> favoriteList = sharedPreferences.getStringSet("favoriteList", null);
-                if(favoriteList==null) {
-                    favoriteList = new LinkedHashSet<String>();
-                    favoriteList.add(symPassed);
-                } else {
-                    if(!favoriteList.contains(symPassed)) {
-                        favoriteList.add(symPassed);
-                    }
-                }
-                editor.putStringSet("favoriteList", favoriteList);
-                editor.commit();*/
-        // }});
-
-        // shareDialog = new ShareDialog(getActivity());
 
         return layout;
-        //       Intent intent = getIntent(); 
-//        String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE); 
-//        Log.d("pooja",message); 
+
     }
 
 

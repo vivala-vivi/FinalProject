@@ -24,14 +24,12 @@ public class TableAdapter extends RecyclerView.Adapter<TableAdapter.TableViewHol
         this.data = data;
     }
 
-
     @Override
     public TableViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view = inflater.inflate(R.layout.custom_row, parent,false);
         TableViewHolder holder = new TableViewHolder(view);
         return holder;
-
     }
 
     @Override
@@ -73,7 +71,6 @@ public class TableAdapter extends RecyclerView.Adapter<TableAdapter.TableViewHol
             title = (TextView) itemView.findViewById(R.id.listtext);
             header = (TextView) itemView.findViewById(R.id.listhead);
             imagetable = (ImageView) itemView.findViewById(R.id.tableimage);
-
         }
     }
 }

@@ -80,7 +80,6 @@ public class MarketFragment extends Fragment {
                 if(!message.equals("")) {
                     Intent intent = new Intent(MarketFragment.this.getActivity(), SendString.class);
                     intent.putExtra("data", message);
-                    // intent.putExtra("favorite", favList.contains(message));
                     startActivity(intent);
                 }
                 else{
@@ -89,10 +88,8 @@ public class MarketFragment extends Fragment {
             }
         });
 
-
         String URL = "https://finnhub.io/api/v1/stock/symbol?exchange=US&token=" + getString(R.string.APIKEY);
         fRequest(URL);
-
 
         autoComplete= (AutoCompleteTextView) view.findViewById(R.id.search);
         // aAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, suggest);
@@ -187,9 +184,7 @@ public class MarketFragment extends Fragment {
             Log.d("auto", "input " + JsonURL);
             RequestQueue queue = Volley.newRequestQueue(mContext.getApplicationContext());
 
-
             JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, JsonURL, null, new Response.Listener<JSONObject>() {
-
 
                 @Override
                 public void onResponse(JSONObject response) {

@@ -48,8 +48,6 @@ public class SendString extends AppCompatActivity {
     }
 
 
-
-
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
