@@ -102,45 +102,45 @@ public class Tab1Charts extends Fragment implements AdapterView.OnItemSelectedLi
 
             RequestQueue queue = Volley.newRequestQueue(getActivity());
 
-                JsonObjectRequest stringRequest = new JsonObjectRequest
-                        (Request.Method.GET, JsonURL, null, new Response.Listener<JSONObject>() {
+            JsonObjectRequest stringRequest = new JsonObjectRequest
+                    (Request.Method.GET, JsonURL, null, new Response.Listener<JSONObject>() {
 
-                @Override
-                public void onResponse(JSONObject response) {
-                    try {
-                        // Display the first 500 characters of the response string.
-                        obj = response.getJSONObject("Time Series (Daily)");
-                        metaobj = response.getJSONObject("Meta Data");
-                        Log.d("Reply","...Getting response");
-                        progressBar.setVisibility(View.INVISIBLE);
-                        tableView.setHasFixedSize(true);
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+                                // Display the first 500 characters of the response string.
+                                obj = response.getJSONObject("Time Series (Daily)");
+                                metaobj = response.getJSONObject("Meta Data");
+                                Log.d("Reply","...Getting response");
+                                progressBar.setVisibility(View.INVISIBLE);
+                                tableView.setHasFixedSize(true);
 
-                        //       ((SendString)getActivity()).string;
-                        tableView.setLayoutManager(new LinearLayoutManager(context));
-                        tableView.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL));
-                        try {
-                            ((SendString)context).data.addAll(getData());
-                            adapter = new TableAdapter(context, getData());
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            Log.d("TAG", "hmmmmmm");
+                                //       ((SendString)getActivity()).string;
+                                tableView.setLayoutManager(new LinearLayoutManager(context));
+                                tableView.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL));
+                                try {
+                                    ((SendString)context).data.addAll(getData());
+                                    adapter = new TableAdapter(context, getData());
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                    Log.d("TAG", "hmmmmmm");
+                                }
+                                tableView.setAdapter(adapter);
+
+                                Log.d("TAG", "hello");
+                                //e.printStackTrace();
+                            } catch (JSONException e) {
+                                Log.d("Reply","NO response");
+                            }
                         }
-                        tableView.setAdapter(adapter);
+                    }, new Response.ErrorListener() {
 
-                        Log.d("TAG", "hello");
-                        //e.printStackTrace();
-                    } catch (JSONException e) {
-                        Log.d("Reply","NO response");
-                    }
-                }
-            }, new Response.ErrorListener() {
-
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(mycontext,"Error while fetching API", Toast.LENGTH_SHORT).show();
-                    Log.e("Volley", "Error11" + error.toString());
-                }
-            });
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(mycontext,"Error while fetching API", Toast.LENGTH_SHORT).show();
+                            Log.e("Volley", "Error11" + error.toString());
+                        }
+                    });
             stringRequest.setRetryPolicy(new DefaultRetryPolicy(
                     20000,
                     DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
@@ -273,8 +273,8 @@ public class Tab1Charts extends Fragment implements AdapterView.OnItemSelectedLi
         final TextView mytext = (TextView) view;
 
         if(mytext!=null) {
-             Toast.makeText(this.context, "Your selection " + mytext.getText(), Toast.LENGTH_SHORT).show();
-                 Log.d("indicator", "my indicator is selected");
+       //     Toast.makeText(this.context, "Your selection " + mytext.getText(), Toast.LENGTH_SHORT).show();
+        //    Log.d("indicator", "my indicator is selected");
 
 
             if(lastRendered.equals(mytext.getText())){

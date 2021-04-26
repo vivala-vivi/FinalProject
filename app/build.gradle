@@ -5,6 +5,10 @@ plugins {
 apply plugin: 'com.google.gms.google-services'  // Google Services plugin
 
 android {
+    signingConfigs {
+        release {
+        }
+    }
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 

@@ -51,28 +51,28 @@ public class MarketFragment extends Fragment {
     public ArrayAdapter<String> aAdapter;
     ProgressBar progressBar;
 
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
-            View view = inflater.inflate(R.layout.fragment_market, container, false);
-            progressBar =  (ProgressBar) view.findViewById(R.id.progressBar3);
+        View view = inflater.inflate(R.layout.fragment_market, container, false);
+        progressBar =  (ProgressBar) view.findViewById(R.id.progressBar3);
 
         //   ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, suggest);
-          // autoComplete.setAdapter(adapter);
-            return view;
+        // autoComplete.setAdapter(adapter);
+        return view;
 
-            //return inflater.inflate(R.layout.fragment_market, container, false);
-        }
+        //return inflater.inflate(R.layout.fragment_market, container, false);
+    }
 
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-            super.onViewCreated(view, savedInstanceState);
+        super.onViewCreated(view, savedInstanceState);
 
-            mContext = getContext();
-            searchList = new LinkedList<Stock>();
-            listView = (ListView) view.findViewById(R.id.mListView);
-            button= (Button) view.findViewById(R.id.quote);
+        mContext = getContext();
+        searchList = new LinkedList<Stock>();
+        listView = (ListView) view.findViewById(R.id.mListView);
+        button= (Button) view.findViewById(R.id.quote);
 
         Button button = (Button) view.findViewById(R.id.quote);
         button.setOnClickListener(new View.OnClickListener()
@@ -98,33 +98,33 @@ public class MarketFragment extends Fragment {
         fRequest(URL);
 
 
-            autoComplete= (AutoCompleteTextView) view.findViewById(R.id.search);
-            // aAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, suggest);
-             autoComplete.setAdapter(aAdapter);
+        autoComplete= (AutoCompleteTextView) view.findViewById(R.id.search);
+        // aAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, suggest);
+        autoComplete.setAdapter(aAdapter);
 
-              autoComplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-              public void onItemClick(AdapterView<?> parent, View view, int position, long rowId) {
-                 String selection = (String)parent.getItemAtPosition(position);
-                  selection  = selection.split("\n")[0];
-                 autoComplete.setText(selection);
-              }
-          });
+        autoComplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long rowId) {
+                String selection = (String)parent.getItemAtPosition(position);
+                selection  = selection.split("\n")[0];
+                autoComplete.setText(selection);
+            }
+        });
 
-            autoComplete.addTextChangedListener(new TextWatcher(){
+        autoComplete.addTextChangedListener(new TextWatcher(){
 
-                public void afterTextChanged(Editable editable) {
-                    // TODO Auto-generated method stub
-                }
+            public void afterTextChanged(Editable editable) {
+                // TODO Auto-generated method stub
+            }
 
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                    // TODO Auto-generated method stub
-                }
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    Log.d("auto","auto complete called");
-                    String newText = s.toString();
-                    new getJsonAutoComplete().executethis(newText);
-                }
-            });
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // TODO Auto-generated method stub
+            }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                Log.d("auto","auto complete called");
+                String newText = s.toString();
+                new getJsonAutoComplete().executethis(newText);
+            }
+        });
     }
 
     private void fRequest(String url){
@@ -137,7 +137,7 @@ public class MarketFragment extends Fragment {
 
                     displaySearchResponse();
                 }, (error) -> {
-         });
+        });
         mQueue.add(jsonObjectRequest);
     }
 
@@ -149,11 +149,11 @@ public class MarketFragment extends Fragment {
 
                 Stock mStock = new Stock();
 
-                    mStock.setSymbol(mStockResponse.getString("symbol"));
-                    mStock.setLongName(mStockResponse.getString("description"));
+                mStock.setSymbol(mStockResponse.getString("symbol"));
+                mStock.setLongName(mStockResponse.getString("description"));
 
 
-               // mStock.setCurrentPrice(mStockResponse.getDouble("c"));
+                // mStock.setCurrentPrice(mStockResponse.getDouble("c"));
 
                 searchList.add(mStock);
             }
@@ -177,7 +177,7 @@ public class MarketFragment extends Fragment {
         if(!message.equals("")) {
             Intent intent = new Intent(MarketFragment.this.getActivity(), SendString.class);
             intent.putExtra("data", message);
-           // intent.putExtra("favorite", favList.contains(message));
+            // intent.putExtra("favorite", favList.contains(message));
             startActivity(intent);
         }
         else{
@@ -185,109 +185,108 @@ public class MarketFragment extends Fragment {
         }
     }
 
-class getJsonAutoComplete {
+    class getJsonAutoComplete {
 
-    public void execute(String newText) {
+        public void execute(String newText) {
 
-        String JsonURL = "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=" + newText + "&apikey=8NEHIYGHRJY1RB3J";
-        Log.d("auto", "input " + JsonURL);
-        RequestQueue queue = Volley.newRequestQueue(mContext.getApplicationContext());
-
-
-                    JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, JsonURL, null, new Response.Listener<JSONObject>() {
+            String JsonURL = "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=" + newText + "&apikey=8NEHIYGHRJY1RB3J";
+            Log.d("auto", "input " + JsonURL);
+            RequestQueue queue = Volley.newRequestQueue(mContext.getApplicationContext());
 
 
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    progressBar.setVisibility(View.INVISIBLE);
-                    Log.d("auto", response.toString());
-                    JSONObject data = response;
-                    JSONArray jArray = new JSONArray(data);
-
-                    // Display the first 500 characters of the response string.
-                    suggest = new ArrayList<String>();
-                    for (int i = 0; i < jArray.length(); i++) {
-                        JSONObject jsonobject = jArray.getJSONObject(i);
-
-                        suggest.add(i, Html.fromHtml("<b>" + jsonobject.getString("1. symbol") + "</b>") + "\n" + jsonobject.getString("2. name"));  // + " (" + jsonobject.getString("Exchange") + ")");
-                    }
-
-                    aAdapter = new ArrayAdapter<String>(mContext.getApplicationContext(), android.R.layout.simple_list_item_1, suggest);
-                    autoComplete.setAdapter(aAdapter);
-                    aAdapter.notifyDataSetChanged();
-
-                    Log.d("Reply", "Getting respone");
-                    Log.d("TAG", "hello");
-                } catch (JSONException e) {
-                    Log.d("auto", "NOT GETTING RESPONSE!! hmmm");
-                    e.printStackTrace();
-                }
-            }
-        },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("Volley", "Error11" + error.toString());
-                    }
-                }
-        );
-        queue.add(stringRequest);
-    }
-
-    public void executethis(String newText) {
-        String JsonURL = "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=" + newText + "&apikey=8NEHIYGHRJY1RB3J";
-        Log.d("auto", "input " + JsonURL);
-        RequestQueue queue = Volley.newRequestQueue(mContext.getApplicationContext());
+            JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, JsonURL, null, new Response.Listener<JSONObject>() {
 
 
-        StringRequest req = new StringRequest(Request.Method.GET, JsonURL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
+                @Override
+                public void onResponse(JSONObject response) {
+                    try {
                         progressBar.setVisibility(View.INVISIBLE);
-                        try {
-                            String data = response;
-                            Log.d("auto", "data" + data);
-                            //processData(response);
-                          //  JSONArray jArray = new JSONArray(data);
+                        Log.d("auto", response.toString());
+                        JSONObject data = response;
+                        JSONArray jArray = new JSONArray(data);
 
-                            JSONObject jsonObject = new JSONObject(data);
-                            JSONArray jArray = jsonObject.getJSONArray("bestMatches");
-                            // Display tthe first 500 characters of the response string.
-                            suggest = new ArrayList<String>();
-                            for (int i = 0; i < jArray.length(); i++) {
-                                JSONObject jsonobject = jArray.getJSONObject(i);
+                        // Display the first 500 characters of the response string.
+                        suggest = new ArrayList<String>();
+                        for (int i = 0; i < jArray.length(); i++) {
+                            JSONObject jsonobject = jArray.getJSONObject(i);
 
-                                suggest.add(i, Html.fromHtml("<b>" + jsonobject.getString("1. symbol") + "</b>") + "\n" + jsonobject.getString("2. name"));// + " (" + jsonobject.getString("Exchange") + ")");
-                            }
+                            suggest.add(i, Html.fromHtml("<b>" + jsonobject.getString("1. symbol") + "</b>") + "\n" + jsonobject.getString("2. name"));  // + " (" + jsonobject.getString("Exchange") + ")");
+                        }
 
-                            aAdapter = new ArrayAdapter<String>(mContext.getApplicationContext(), R.layout.autocomplete, suggest);
-                            autoComplete.setAdapter(aAdapter);
+                        aAdapter = new ArrayAdapter<String>(mContext.getApplicationContext(), android.R.layout.simple_list_item_1, suggest);
+                        autoComplete.setAdapter(aAdapter);
+                        aAdapter.notifyDataSetChanged();
 
-                            aAdapter.notifyDataSetChanged();
-                            Log.d("Reply", "Getting response");
-
-                        } catch (JSONException e) {
-                            Log.d("Reply", "Mmmm no response");
-                            e.printStackTrace();
+                        Log.d("Reply", "Getting respone");
+                        Log.d("TAG", "hello");
+                    } catch (JSONException e) {
+                        Log.d("auto", "NOT GETTING RESPONSE!! hmmm");
+                        e.printStackTrace();
+                    }
+                }
+            },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.e("Volley", "Error11" + error.toString());
                         }
                     }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // handle error response
+            );
+            queue.add(stringRequest);
+        }
+
+        public void executethis(String newText) {
+            String JsonURL = "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=" + newText + "&apikey=8NEHIYGHRJY1RB3J";
+            Log.d("auto", "input " + JsonURL);
+            RequestQueue queue = Volley.newRequestQueue(mContext.getApplicationContext());
+
+
+            StringRequest req = new StringRequest(Request.Method.GET, JsonURL,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            progressBar.setVisibility(View.INVISIBLE);
+                            try {
+                                String data = response;
+                                Log.d("auto", "data" + data);
+                                //processData(response);
+                                //  JSONArray jArray = new JSONArray(data);
+
+                                JSONObject jsonObject = new JSONObject(data);
+                                JSONArray jArray = jsonObject.getJSONArray("bestMatches");
+                                // Display tthe first 500 characters of the response string.
+                                suggest = new ArrayList<String>();
+                                for (int i = 0; i < jArray.length(); i++) {
+                                    JSONObject jsonobject = jArray.getJSONObject(i);
+
+                                    suggest.add(i, Html.fromHtml("<b>" + jsonobject.getString("1. symbol") + "</b>") + "\n" + jsonobject.getString("2. name"));// + " (" + jsonobject.getString("Exchange") + ")");
+                                }
+
+                                aAdapter = new ArrayAdapter<String>(mContext.getApplicationContext(), R.layout.autocomplete, suggest);
+                                autoComplete.setAdapter(aAdapter);
+
+                                aAdapter.notifyDataSetChanged();
+                                Log.d("Reply", "Getting response");
+
+                            } catch (JSONException e) {
+                                Log.d("Reply", "Mmmm no response");
+                                e.printStackTrace();
+                            }
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            // handle error response
+                        }
                     }
-                }
-        );
-        queue.add(req);
+            );
+            queue.add(req);
+
+        }
 
     }
 
-}
-
 
 
 }
-

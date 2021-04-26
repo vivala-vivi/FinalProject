@@ -40,8 +40,8 @@ public class SendString extends AppCompatActivity {
 //        Log.d("pooja",message); 
 
 
-     //   Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-       // setSupportActionBar(toolbar);
+        //   Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        // setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(message);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         // Create the adapter that will return a fragment for each of the three
@@ -53,7 +53,7 @@ public class SendString extends AppCompatActivity {
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.setOffscreenPageLimit(3);
         //TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-       // tabLayout.setupWithViewPager(mViewPager);
+        // tabLayout.setupWithViewPager(mViewPager);
 
     }
 
@@ -79,7 +79,7 @@ public class SendString extends AppCompatActivity {
                 //        Tab3News tab3 = new Tab3News();
                 //       return tab3;
                 default:
-                   return null;
+                    return null;
 
             }
         }
@@ -92,4 +92,3 @@ public class SendString extends AppCompatActivity {
 
     }
 }
-
